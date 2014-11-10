@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home Page</title>
+  </head>
+  <body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+      {% for message in messages %}
+      {% for mes in message %}
+      <a href="{{mes}}"> Here </a><br>
+      {% endfor %}
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    {% block body %}
+    {% endblock %}
+  </body>
+</html>

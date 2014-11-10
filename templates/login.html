@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login Page</title>
+  </head>
+  <body>
+    <form method="POST">
+      <input type="text" name="username" placeholder = "Username">
+      <input type="password" name="password" placeholder = "Password">
+      <button type="submit" name="b" value="Login">Login</button>
+      <button type="submit" name="b" value="Register">Register</button>
+    </form>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+      {% for message in messages %}
+      <p> {{message}} </p>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    {% block body %}
+    {% endblock %}
+  </body>
+</html>

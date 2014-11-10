@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Update</title>
+  </head>
+  <body>
+    <form method="POST">
+      <input type="text" name="username" placeholder = "Username">
+      <input type="password" name="password" placeholder = "Password">
+      <input type="text" name="country" placeholder = "Nation of Origin">
+      <input type="text" name="currency" placeholder = "Currency">
+      
+      <input type="checkbox" name="check" value="username">Update Username
+      <input type="checkbox" name="check" value="password">Update Password
+      <input type="checkbox" name="check" value="nationality">Update Nationality
+      <input type="checkbox" name="check" value="currency">Update Currency
+
+      <button type="submit" name="b" value="Update">Update</button>
+      <button type="submit" name="b" value="Back">Go Back</button>
+    </form>
+  </body>
+</html>

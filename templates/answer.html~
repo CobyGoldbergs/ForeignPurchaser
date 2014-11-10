@@ -1,0 +1,7 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Answer Page</title>
+  </head>
+  ANSWER: You have {{ans}}. You can buy <a href="{{link}}"> this </a> for  {{price}}. News on your currency: {{news}}
+</html>

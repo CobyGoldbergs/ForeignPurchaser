@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home Page</title>
+  </head>
+ <body>
+   <form method="POST">
+     <input type="text" name="amount" placeholder = "Amount">
+     <input type="text" name="year" placeholder = "Year">
+     <input type="text" name="item" placeholder = "What to Buy">
+     <button type="submit" name="b" value="Submit">Submit</button>
+     <button type="submit" name="b" value="Update">Update</button>
+     </form>
+   </body>
+</html>
