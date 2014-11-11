@@ -10,6 +10,8 @@
      <input type="text" name="item" placeholder = "What to Buy">
      <button type="submit" name="b" value="Submit">Submit</button>
      <button type="submit" name="b" value="Update">Update</button>
+     <button type="submit" name="b" value="News">Currency News</button>
+     <button type="submit" name="b" value="Logout">Logout</button>
      </form>
    </body>
 </html>

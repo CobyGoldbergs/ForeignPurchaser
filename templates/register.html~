@@ -11,5 +11,16 @@
       <input type="text" name="currency" placeholder = "Currency">
       <button type="submit" name="b" value="Register">Register</button>
     </form>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+      {% for message in messages %}
+      <p> {{message}} </p>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    {% block body %}
+    {% endblock %}
   </body>
 </html>

@@ -3,5 +3,15 @@
   <head>
     <title>Answer Page</title>
   </head>
-  ANSWER: You have {{ans}}. You can buy <a href="{{link}}"> this </a> for  {{price}}. News on your currency: {{news}}
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+      {% for message in messages %}
+      <p> You have ${{message[0]}}. You can buy <a href="{{message[2]}}"> this </a> for  ${{message[1]}}. <a href="{{message[3]}}"> She's </a> a beaut, is she not? </p>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    {% block body %}
+    {% endblock %}
 </html>

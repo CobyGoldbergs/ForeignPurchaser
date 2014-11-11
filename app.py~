@@ -35,8 +35,6 @@ def register():
         currency = request.form["currency"]
         validity = nation_validity(country, currency)
         button = request.form["b"]
-        if button == "Login":
-            return redirect(url_for('login'))
         if validity[0]:
             if button == "Register":
                 t = create_user(username, password, country, currency)
