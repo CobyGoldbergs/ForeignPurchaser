@@ -9,6 +9,12 @@
       padding-top: 70px;
       background-image: url("static/subtle_zebra_3d.png");
       }
+      .news{
+      max-width: 750px;
+      padding: 15px;
+      margin: 0 auto;
+      background: white;
+      }
     </style>
   </head>
   <body>
@@ -29,21 +35,29 @@
       </div>
     </nav>
     <div class="container">
-      <!--{% with messages = get_flashed_messages() %}
-      {% if messages %}
-      {% for message in messages %}
-      <div class="alert alert-info">
-	{{message}}
-      </div>
-      {% endfor %}
-      {% endif %}
-      {% endwith %}
-      {% block body %}
-      {% endblock %}-->
-
-      {% for new in news %}
-      {{ new }} <br>
-      {% endfor %}
+      <form class="news">
+	<!--{% with messages = get_flashed_messages() %}
+	    {% if messages %}
+	    {% for message in messages %}
+	    <div class="alert alert-info">
+	      {{message}}
+	    </div>
+	    {% endfor %}
+	    {% endif %}
+	    {% endwith %}
+	    {% block body %}
+	    {% endblock %}-->
+	<p>
+	  Links to news about your currency:
+	  <br>
+	  {% for new in news %}
+	  <a href="{{ new }}">{{ new }}</a><br>
+	  {% endfor %}
+	  {% if not display == None %}
+	  {{ display }}
+	  {% endif %}
+	</p>
+      </form>
     </div>
   </body>
 </html>

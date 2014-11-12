@@ -1,26 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Login Page</title>
+    <title>Signup Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/signin.css">
   </head>
   <body>
-    <form method="POST">
-      <input type="text" name="username" placeholder = "Username">
-      <input type="password" name="password" placeholder = "Password">
-      <input type="text" name="country" placeholder = "Nation of Origin">
-      <input type="text" name="currency" placeholder = "Currency">
-      <button type="submit" name="b" value="Register">Register</button>
-    </form>
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul class=flashes>
-      {% for message in messages %}
-      <p> {{message}} </p>
-      {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
-    {% block body %}
-    {% endblock %}
+    <div class="container">
+      <form class="form-signin" role="form" method="POST">
+	<h1 class="form-signin-heading">Sign up</h1>
+	<hr>
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	{% for message in messages %}
+	<div class="alert alert-info">
+	  {{message}}
+	</div>
+	{% endfor %}
+	{% endif %}
+	{% endwith %}
+	<input type="text" class="form-control" name="username" placeholder = "Username" autofocus>
+	<input type="password" class="form-control" name="password" placeholder = "Password">
+	
+	<!-- input type="text" class="form-control" name="country" placeholder = "Nation of Origin">
+	<input type="text" class="form-control" name="currency" placeholder = "Currency"-->
+	<br>
+	Country of Origin:
+	<select id="countries" name="country">
+	  {% for nation in nations %}
+	  <option value={{nation}}> {{nation}} </option>
+	  {% endfor %}
+	</select>
+	<br>
+	Currency:
+	<select id="currencies" name="currency">
+	  {% for currency in currencies %}
+	  <option value={{currency}}> {{currency}} </option>
+	  {% endfor %}
+	</select>
+	<br>
+	<br>
+	<button class="btn btn-lg btn-primary btn-block" type="submit" name="b" value="Register">Register</button>
+	<br>
+	Go back to log in:
+	<button class="btn btn-lg btn-default btn-block" type="submit" name="b" value="Login">Login</button>
+      </form>
+      {% block body %}
+      {% endblock %}
+    </div>
   </body>
 </html>

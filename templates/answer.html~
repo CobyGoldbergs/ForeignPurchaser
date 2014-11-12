@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Answer Page</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
   </head>
   {% with messages = get_flashed_messages() %}
     {% if messages %}

@@ -102,12 +102,14 @@ def logout():
 
 @app.route("/update",methods=["GET","POST"])
 def update():
+    nations = nation_currency("nations")
+    currencies = nation_currency("currencies")
     if request.method=="GET":
         if (session["username"] == ""):
             flash("You must be logged in to access this feature")
             return redirect(url_for('login'))
         else:
-            return render_template("update.html")
+            return render_template("update.html", nations=nations, currencies=currencies)
     else:
         button = request.form["b"]
         if button == "Update":
@@ -134,7 +136,10 @@ def news():
             return redirect(url_for('login'))
         else:
             print news
-            return render_template("news.html", news = news)
+            display = None
+            if not news:
+                display = "Sorry, looks like there's no news for your currency."
+            return render_template("news.html", news = news, display = display)
     else:
         return redirect(url_for("home"))
 

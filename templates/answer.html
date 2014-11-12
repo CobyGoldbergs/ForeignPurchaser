@@ -3,16 +3,43 @@
   <head>
     <title>Answer Page</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <style>
+      body{
+      padding-top: 70px;
+      background-image: url("static/seamless_paper_texture.png");
+      }
+    </style>
   </head>
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul class=flashes>
-      {% for message in messages %}
-      <p> You have ${{message[0]}}. You can buy <a href="{{message[2]}}"> this </a> for  ${{message[1]}}. <a href="{{message[3]}}"> She's </a> a beaut, is she not? </p>
-      {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
-    {% block body %}
-    {% endblock %}
+  <body>
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+	<div class="navbar-header">
+	  <a class="navbar-brand" href="#">Answer</a>
+	</div>
+	<div id="navbar" class="navbar-collapse collapse">
+	  <ul class="nav navbar-nav">
+            <li><a href="{{ url_for('home') }}">Go to home</a></li>
+	    <li><a href="{{ url_for('news') }}">Currency News</a></li>
+	    <li><a href="{{ url_for('update') }}">Update your Info</a></li>
+	  </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url_for('logout') }}">Log out</a></li>
+          </ul>
+	</div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="container">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      <ul class=flashes>
+	{% for message in messages %}
+	<p> You have ${{message[0]}}. You can buy <a href="{{message[2]}}"> this </a> for  ${{message[1]}}. <a href="{{message[3]}}"> She's a beaut, is she not? </a></p>
+	{% endfor %}
+      </ul>
+      {% endif %}
+      {% endwith %}
+      {% block body %}
+      {% endblock %}
+    </div>
+  </body>
 </html>
