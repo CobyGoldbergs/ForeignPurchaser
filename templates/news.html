@@ -48,10 +48,11 @@
 	    {% block body %}
 	    {% endblock %}-->
 	<p>
-	  Links to news about your currency:
+	  <u>Links to news about your currency:<u>
 	  <br>
+	  <hr>
 	  {% for new in news %}
-	  <a href="{{ new }}">{{ new }}</a><br>
+	  <a href="{{ new }}">{{ new }}</a><br><hr>
 	  {% endfor %}
 	  {% if not display == None %}
 	  {{ display }}

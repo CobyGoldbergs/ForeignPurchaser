@@ -8,6 +8,12 @@
       padding-top: 70px;
       background-image: url("static/seamless_paper_texture.png");
       }
+      .answer{
+      max-width: 750px;
+      padding: 15px;
+      margin: 0 auto;
+      background: white;
+      }
     </style>
   </head>
   <body>
@@ -29,17 +35,19 @@
       </div>
     </nav>
     <div class="container">
-      {% with messages = get_flashed_messages() %}
-      {% if messages %}
-      <ul class=flashes>
-	{% for message in messages %}
-	<p> You have ${{message[0]}}. You can buy <a href="{{message[2]}}"> this </a> for  ${{message[1]}}. <a href="{{message[3]}}"> She's a beaut, is she not? </a></p>
-	{% endfor %}
-      </ul>
-      {% endif %}
-      {% endwith %}
-      {% block body %}
-      {% endblock %}
+      <form class="answer">
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	<ul class=flashes>
+	  {% for message in messages %}
+	  <p> You have ${{message[0]}}. You can buy <a href="{{message[2]}}"> this </a> for  ${{message[1]}}. <a href="{{message[3]}}"> She's a beaut, is she not? </a></p>
+	  {% endfor %}
+	</ul>
+	{% endif %}
+	{% endwith %}
+	{% block body %}
+	{% endblock %}
+      </form>
     </div>
   </body>
 </html>
