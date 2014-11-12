@@ -1,21 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Update</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/signin.css">
+    <style>
+      body{
+      padding-top: 70px;
+      background-image: url("static/congruent_pentagon.png");
+      }
+    </style>
   </head>
   <body>
-    <form method="POST">
-      <input type="password" name="password" placeholder = "Password">
-      <input type="text" name="country" placeholder = "Nation of Origin">
-      <input type="text" name="currency" placeholder = "Currency">
-      
-      <input type="checkbox" name="check" value="password">Update Password
-      <input type="checkbox" name="check" value="country">Update Nationality
-      <input type="checkbox" name="check" value="currency">Update Currency
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+	<div class="navbar-header">
+	  <a class="navbar-brand" href="#">Update</a>
+	</div>
+	<div id="navbar" class="navbar-collapse collapse">
+	  <ul class="nav navbar-nav">
+            <li class="active"><a href="{{ url_for('home') }}">Go to Home</a></li>
+	  </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url_for('logout') }}">Log out</a></li>
+          </ul>
+	</div><!--/.nav-collapse -->
+      </div>
+    </nav>
+    <div class="container">
+      <form class="form-signin" role="form" method="POST">
+	<h2 class="form-sigin-heading">Update your Information</h2>
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	{% for message in messages %}
+	<div class="alert alert-info">
+	  {{message}}
+	</div>
+	{% endfor %}
+	{% endif %}
+	{% endwith %}
+	{% block body %}
+	{% endblock %}
+	<input type="password" class="form-control"name="password" placeholder = "Password">
+	<input type="text" class="form-control" name="country" placeholder = "Nation of Origin">
+	<input type="text" class="form-control" name="currency" placeholder = "Currency">
+	
+	<div class="checkbox">
+	  <label>
+	    <input type="checkbox" name = "check" value="password">
+	    Update Password
+	  </label>
+	</div>
+	<div class="checkbox">
+	  <label>
+	    <input type="checkbox" name = "check" value="country">
+	    Update Nationality
+	  </label>
+	</div>
+	<div class="checkbox">
+	  <label>
+	    <input type="checkbox" name = "check" value="currency">
+	    Update Currency
+	  </label>
+	</div>
 
-      <button type="submit" name="b" value="Update">Update</button>
-      <button type="submit" name="b" value="Back">Go Back</button>
-    </form>
+	<button class="btn btn-lg btn-primary btn-block" type="submit" name="b" value="Update">Update</button>
+      </form>
+    </div>
   </body>
 </html>

@@ -91,22 +91,14 @@ def home():
                 flash(l)
                 return redirect(url_for("answer"))
             else:
+                flash("One or more of your forms was invalid")
                 return render_template("home.html")
-        if button == "Update":
-            return redirect(url_for("update"))
-        if button == "News":
-            username = session["username"]
-            user = find_user(username)
-            currency = user["currency"]
-            news = find_news(currency)
-            flash(news)
-            return redirect(url_for("news"))
 
 @app.route('/logout')
 def logout():
     flash("You've been logged out")
-    session.pop('username', None)
-    return redirect(url_for('login'))
+    session["username"] = ""
+    return redirect(url_for("login"))
 
 @app.route("/update",methods=["GET","POST"])
 def update():
@@ -123,20 +115,24 @@ def update():
             for val in value:
                 v = request.form["%s" %(val,)]
                 l = {"%s" % (val,): v}
-                print("updating")
+                flash("Updated")
                 update_user(session['username'],l)
             return redirect(url_for("home"))
         else:
-            return redirect(url_for("home"))
+            return redirect(url_for("update"))
 
 @app.route("/news", methods=["GET","POST"])
 def news():
+    username = session["username"]
+    user = find_user(username)
+    currency = user["currency"]
+    news = find_news(currency)
     if request.method=="GET":
         if (session["username"] == ""):
             flash("You must be logged in to access this feature")
             return redirect(url_for('login'))
         else:
-            return render_template("news.html")
+            return render_template("news.html", news=news)
     else:
         return redirect(url_for("home"))
 

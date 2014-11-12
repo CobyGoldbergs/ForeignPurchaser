@@ -73,7 +73,9 @@ def nation_currency(string):
         return currencies
 
 #helper method to make sure a useable date, year, and item were inputed. The amount must be a whole number, the year must be between 1975 and 2009 (the date range for which our api has data)
-def query_validity(amount, year, item, price_range):
+def query_validity(amount, year, item):
+    if (year.isdigit() == False):
+        return "y must be a number"
     y = int(year)
     if (y < 1975):
         return "Year too low"
@@ -83,8 +85,6 @@ def query_validity(amount, year, item, price_range):
         return "Amount must be a number"
     if (item == ""):
         return "You forgot the item"
-    if (price_range.isdigit() == False):
-        return "Price range must be a number"
     else:
         return "Valid"
 
@@ -104,7 +104,7 @@ def find_money(amount, currency, year, nation):
 def find_product(ans, item):
     #Ebay api returns list of items and prices
     url = "http://open.api.ebay.com/shopping?appid=CobyGold-0d75-4e41-993d-a4faa8a54198&version=517&siteid=0&callname=FindItems&itemFilter(0).name=MinPrice&itemFilter(0).value=(%s)&itemFilter(1).name=MaxPrice&itemFilter(1).value=(%s)&QueryKeywords=%s&responseencoding=JSON"
-    url = url%(min_price, max_price, item)
+    url = url%(item)
     req = urllib2.urlopen(url)
     d = req.read()
     result = json.loads(d)
