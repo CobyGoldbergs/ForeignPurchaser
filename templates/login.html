@@ -17,6 +17,17 @@
       <form class="form-signin" role="form" method="POST">
 	<h1 class="form-signin-heading">Log in</h1>
 	<hr>
+	{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	{% for message in messages %}
+	<div class="alert alert-info">
+	  {{message}}
+	</div>
+	{% endfor %}
+	{% endif %}
+	{% endwith %}
+	{% block body %}
+	{% endblock %}
 	<input type="text" class="form-control" name="username" placeholder = "Username" autofocus>
 	<input type="password" class="form-control" name="password" placeholder = "Password">
 	<button class="btn btn-lg btn-primary btn-block" type="submit" name="b" value="Login">Login</button>
@@ -24,17 +35,6 @@
 	Create an account:
 	<button class="btn btn-lg btn-default btn-block" type="submit" name="b" value="Register">Register</button>
       </form>
-      {% with messages = get_flashed_messages() %}
-      {% if messages %}
-      <ul class=flashes>
-	{% for message in messages %}
-	<p> {{message}} </p>background = "static/swirl_pattern" style="background-attachment:fixed"
-	{% endfor %}
-      </ul>
-      {% endif %}
-      {% endwith %}
-      {% block body %}
-      {% endblock %}
     </div>
   </body>
 </html>

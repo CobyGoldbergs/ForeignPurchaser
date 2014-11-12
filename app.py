@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, escape, flash
-from functions import authenticate_user, find_user, create_user, update_user, nation_validity, query_validity, find_product, find_news, find_money
+from functions import authenticate_user, find_user, create_user, update_user, nation_validity, query_validity, find_product, find_news, find_money, nation_currency
 
 app=Flask(__name__)
 app.secret_key = 'secret'
@@ -20,23 +20,26 @@ def login():
                 session['username'] = username
                 return redirect(url_for('home'))
             else:
+                flash("Username or password was invalid")
                 return redirect(url_for('login'))
         else:
             return redirect(url_for('register'))
 
 @app.route("/register",methods=["GET","POST"])
 def register():
+    nations = nation_currency("nations")
+    currencies = nation_currency("currencies")
     if request.method=="GET":
-        return render_template("register.html")
+        return render_template("register.html", nations=nations, currencies=currencies)
     else:
+        button = request.form["b"]
+        if button == "Login":
+            return redirect(url_for('login'))
         username = request.form["username"]
         password = request.form["password"]
         country = request.form["country"]
         currency = request.form["currency"]
         validity = nation_validity(country, currency)
-        button = request.form["b"]
-        if button == "Login":
-            return redirect(url_for('login'))
         if validity[0]:
             if button == "Register":
                 t = create_user(username, password, country, currency)
@@ -98,10 +101,12 @@ def home():
             news = find_news(currency)
             flash(news)
             return redirect(url_for("news"))
-        if button == "Logout":
-            flash("You've been logged out")
-            session["username"] = ""
-            return redirect(url_for("login"))
+
+@app.route('/logout')
+def logout():
+    flash("You've been logged out")
+    session.pop('username', None)
+    return redirect(url_for('login'))
 
 @app.route("/update",methods=["GET","POST"])
 def update():

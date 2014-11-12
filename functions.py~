@@ -64,14 +64,6 @@ def nation_validity(nation, currency):
     else:
         return (True, "User Registered")
 
-def nation_currency(string):
-    nations = ["AUS", "AUT", "BEL", "BRA", "CAN", "CHE", "CHL", "CHN", "COL", "CZE", "DEU", "DNK", "ESP", "EST", "FIN", "FRA", "GBR", "GRC", "HUN", "IND", "ISR", "ITA", "JPN", "KOR", "KWT", "LTU", "LUX", "LVA", "NLD", "NOR", "NZL", "POL", "PRT", "SAU", "SVK", "SWE", "THA", "TWN", "USA", "ZAF"]
-    currencies = ["AED", "AMD", "BIF", "BTN", "CAD", "CHF", "CNY", "COP", "CZK", "DJF", "EEK", "EGP", "ERN", "ETB", "EUR", "GBP", "GHS", "GNF", "HKD", "HUF", "INR", "KES", "KMF", "KRW", "KWD", "LRD", "LSL", "LTL", "LVL", "LYD", "MAD", "MGA", "MRO", "MUR", "MWK", "NAD", "NGN", "NZD", "PLN", "RWF", "SAR", "SDG", "SKK", "THB", "TND", "TZS", "UGX", "USD", "XAF", "XOF", "ZAR", "ZMK"]
-    if string == "nations":
-        return nations
-    else:
-        return currencies
-
 #helper method to make sure a useable date, year, and item were inputed. The amount must be a whole number, the year must be between 1975 and 2009 (the date range for which our api has data)
 def query_validity(amount, year, item, price_range):
     y = int(year)
