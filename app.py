@@ -126,13 +126,15 @@ def news():
     username = session["username"]
     user = find_user(username)
     currency = user["currency"]
+    print currency
     news = find_news(currency)
     if request.method=="GET":
         if (session["username"] == ""):
             flash("You must be logged in to access this feature")
             return redirect(url_for('login'))
         else:
-            return render_template("news.html", news=news)
+            print news
+            return render_template("news.html", news = news)
     else:
         return redirect(url_for("home"))
 

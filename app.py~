@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, escape, flash
-from functions import authenticate_user, find_user, create_user, update_user, nation_validity, query_validity, find_product, find_news, find_money
+from functions import authenticate_user, find_user, create_user, update_user, nation_validity, query_validity, find_product, find_news, find_money, nation_currency
 
 app=Flask(__name__)
 app.secret_key = 'secret'
@@ -20,21 +20,26 @@ def login():
                 session['username'] = username
                 return redirect(url_for('home'))
             else:
+                flash("Username or password was invalid")
                 return redirect(url_for('login'))
         else:
             return redirect(url_for('register'))
 
 @app.route("/register",methods=["GET","POST"])
 def register():
+    nations = nation_currency("nations")
+    currencies = nation_currency("currencies")
     if request.method=="GET":
-        return render_template("register.html")
+        return render_template("register.html", nations=nations, currencies=currencies)
     else:
+        button = request.form["b"]
+        if button == "Login":
+            return redirect(url_for('login'))
         username = request.form["username"]
         password = request.form["password"]
         country = request.form["country"]
         currency = request.form["currency"]
         validity = nation_validity(country, currency)
-        button = request.form["b"]
         if validity[0]:
             if button == "Register":
                 t = create_user(username, password, country, currency)
@@ -86,20 +91,14 @@ def home():
                 flash(l)
                 return redirect(url_for("answer"))
             else:
+                flash("One or more of your forms was invalid")
                 return render_template("home.html")
-        if button == "Update":
-            return redirect(url_for("update"))
-        if button == "News":
-            username = session["username"]
-            user = find_user(username)
-            currency = user["currency"]
-            news = find_news(currency)
-            flash(news)
-            return redirect(url_for("news"))
-        if button == "Logout":
-            flash("You've been logged out")
-            session["username"] = ""
-            return redirect(url_for("login"))
+
+@app.route('/logout')
+def logout():
+    flash("You've been logged out")
+    session["username"] = ""
+    return redirect(url_for("login"))
 
 @app.route("/update",methods=["GET","POST"])
 def update():
@@ -116,20 +115,24 @@ def update():
             for val in value:
                 v = request.form["%s" %(val,)]
                 l = {"%s" % (val,): v}
-                print("updating")
+                flash("Updated")
                 update_user(session['username'],l)
             return redirect(url_for("home"))
         else:
-            return redirect(url_for("home"))
+            return redirect(url_for("update"))
 
 @app.route("/news", methods=["GET","POST"])
 def news():
+    username = session["username"]
+    user = find_user(username)
+    currency = user["currency"]
+    news = find_news(currency)
     if request.method=="GET":
         if (session["username"] == ""):
             flash("You must be logged in to access this feature")
             return redirect(url_for('login'))
         else:
-            return render_template("news.html")
+            return render_template("news.html", news=news)
     else:
         return redirect(url_for("home"))
 

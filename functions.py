@@ -103,8 +103,8 @@ def find_money(amount, currency, year, nation):
 #Finds a list of products using the ebay api, sends back the product link with the price closest to how much money the user has
 def find_product(ans, item):
     #Ebay api returns list of items and prices
-    url = "http://open.api.ebay.com/shopping?appid=CobyGold-0d75-4e41-993d-a4faa8a54198&version=517&siteid=0&callname=FindItems&itemFilter(0).name=MinPrice&itemFilter(0).value=(%s)&itemFilter(1).name=MaxPrice&itemFilter(1).value=(%s)&QueryKeywords=%s&responseencoding=JSON"
-    url = url%(item)
+    url = "http://open.api.ebay.com/shopping?appid=CobyGold-0d75-4e41-993d-a4faa8a54198&version=517&siteid=0&callname=FindItems&QueryKeywords=%s&responseencoding=JSON"
+    url = url%(item,)
     req = urllib2.urlopen(url)
     d = req.read()
     result = json.loads(d)
@@ -139,21 +139,12 @@ def find_news(currency):
     url = url%(currency)
     req = urllib2.urlopen(url)
     result = req.read()
-    results = result.split("unescapedUrl")
+    result = json.loads(result)
+    results = result["responseData"]["results"]
+    print results
     ret = []
     for res in results:
-        #each news item has unescapedUrl, split there
-        x = res.find("unescapedUrl")
-        #find the url that follows unescapedUrl
-        r = res[x+10:x+200]
-        #Since urls have varying lengths, cut at the ,
-        x = r.find(",")
-        r = r[1:x-1]
-        #To avoid localhost being attached as the prefix
-        r = "http://" + r
-        ret.append(r)
-    ret = ret[1:len(ret)]
-    for r in ret:
-        if r[0] != 'w':
-            ret.remove(r)
+        #each news item has unescapedUrl
+        x = res["unescapedUrl"]
+        ret.append(x)
     return ret
