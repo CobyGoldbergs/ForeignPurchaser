@@ -26,16 +26,16 @@
 	<input type="text" class="form-control" name="currency" placeholder = "Currency"-->
 	<br>
 	Country of Origin:
-	<select id="countries" name="country">
+	<select id="countries" class="form-control" name="country">
 	  {% for nation in nations %}
 	  <option value={{nation}}> {{nation}} </option>
 	  {% endfor %}
 	</select>
 	<br>
 	Currency:
-	<select id="currencies" name="currency">
+	<select id="currencies" class="form-control" name="currency">
 	  {% for currency in currencies %}
-	  <option value={{currency}}> {{currency}} </option>
+	  <option value={{currency [0:3]}}> {{currency}} </option>
 	  {% endfor %}
 	</select>
 	<br>

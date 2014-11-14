@@ -37,8 +37,10 @@ def register():
             return redirect(url_for('login'))
         username = request.form["username"]
         password = request.form["password"]
-        country = request.form["country"]
-        currency = request.form["currency"]
+        country = (request.form["country"])[0:3]
+        print "cou " + country
+        currency = (request.form["currency"])[0:3]
+        print "cur " + currency
         validity = nation_validity(country, currency)
         if validity[0]:
             if button == "Register":
@@ -76,7 +78,7 @@ def home():
             user = find_user(username)
             nation = user["country"]
             currency = user["currency"]
-
+            print "currency: " + currency
             if validity == "Valid":
                 #uses currency deflator api to find your money (and your price range) in 2009 dollars
                 ans = find_money(amount, currency, year, nation)
@@ -116,6 +118,8 @@ def update():
             value = request.form.getlist('check')
             for val in value:
                 v = request.form["%s" %(val,)]
+                if (val == "country") or (val == "currency"):
+                    v = v[0:3]
                 l = {"%s" % (val,): v}
                 flash("Updated")
                 update_user(session['username'],l)

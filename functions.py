@@ -65,8 +65,10 @@ def nation_validity(nation, currency):
         return (True, "User Registered")
 
 def nation_currency(string):
-    nations = ["AUS", "AUT", "BEL", "BRA", "CAN", "CHE", "CHL", "CHN", "COL", "CZE", "DEU", "DNK", "ESP", "EST", "FIN", "FRA", "GBR", "GRC", "HUN", "IND", "ISR", "ITA", "JPN", "KOR", "KWT", "LTU", "LUX", "LVA", "NLD", "NOR", "NZL", "POL", "PRT", "SAU", "SVK", "SWE", "THA", "TWN", "USA", "ZAF"]
-    currencies = ["AED", "AMD", "BIF", "BTN", "CAD", "CHF", "CNY", "COP", "CZK", "DJF", "EEK", "EGP", "ERN", "ETB", "EUR", "GBP", "GHS", "GNF", "HKD", "HUF", "INR", "KES", "KMF", "KRW", "KWD", "LRD", "LSL", "LTL", "LVL", "LYD", "MAD", "MGA", "MRO", "MUR", "MWK", "NAD", "NGN", "NZD", "PLN", "RWF", "SAR", "SDG", "SKK", "THB", "TND", "TZS", "UGX", "USD", "XAF", "XOF", "ZAR", "ZMK"]
+    #all valid nations for api use
+    nations = ["AUS (Australia)", "AUT (Austria)", "BEL (Belgium)", "BRA (Brazil)", "CAN (Canada)", "CHE (Switzerland)", "CHL (Chile)", "CHN (China)", "COL (Columbia)", "CZE (Czech Republic)", "DEU (Germany)", "DNK (Denmark)", "ESP (Spain)", "EST (Estonia)", "FIN (Finland)", "FRA (France)", "GBR (Great Britain)", "GRC (Greece)", "HUN (Hungary)", "IND (India)", "ISR (Israel)", "ITA (Italy)", "JPN (Japan)", "KOR (South Korea)", "KWT (Kuwait)", "LTU (Lithuania)", "LUX (Luxembourg)", "LVA (Latvia)", "NLD (Netherlands)", "NOR (Norway)", "NZL (New Zealand)", "POL (Poland)", "PRT (Portugal)", "SAU (Saudia Arabia)", "SVK (Slovakia)", "SWE (Sweden)", "THA (Thailand)", "TWN (Taiwan)", "USA", "ZAF (South Africa)"]
+    #all valid currencies for api use
+    currencies = ["AED (United Arab Emirates Dirham)", "AMD (Armenian Dram)", "BIF (Burundi Frnc)", "BTN (Bhutanese Ngultrum)", "CAD (Canadian Dollar)", "CHF (Swiss Franc)", "CNY (Chinese Yuan)", "COP (Colombian Peso)", "CZK (Czech Koruna)", "DJF (Djibouti Franc)", "EEK (Estonian Kroon)", "EGP (Egyptian Pound)", "ERN (Eritrean Nafka)", "ETB (Eithiopian Birr)", "EUR (Euro)", "GBP (Pound Sterling)", "GHS (Ghanaian Cedi)", "GNF (Guinea Franc)", "HKD (Hong Kong Dollar)", "HUF (Hungarian Forint)", "INR (Indian Rupee)", "KES (Kenyan Shilling)", "KMF (Comoros Franc)", "KRW (Korean Wan)", "KWD (Kuwaiti Dinar)", "LRD (Liberian Dollar)", "LSL (Lesotho Loti)", "LTL (Lithuanian Litas)", "LVL (Latvian Lats)", "LYD (Libyan Dinar)", "MAD (Moroccan Dirham)", "MGA (Malagasy Ariary)", "MRO (Mauritanian Ouguiya)", "MUR (Mauritius Rupee)", "MWK (Malawaian Kwacha)", "NAD (Namibia Dollar)", "NGN (New Zealand Dollar)", "NZD (New Zealand Dollar)", "PLN (Polish Zloty)", "RWF (Rwanda Franc)", "SAR (Saudi Riyal)", "SDG (Sudanese Pound)", "SKK (Slovak Koruna)", "TND (Tunisian Dinar)", "TZS (Turkish Lira)", "UGX (Uganada Shilling)", "USD (US Dollar)",  "ZAR (South African Rand)", "ZMK (Zambian Kwacha)"]
     if string == "nations":
         return nations
     else:
@@ -93,12 +95,13 @@ def query_validity(amount, year, item):
 
 #uses currency deflator api to find your money in 2009 dollars
 def find_money(amount, currency, year, nation):
-     url = "https://data.itpir.wm.edu/deflate/api.php?val=%s%s%s%s"
-     url = url%(amount, currency, year, nation)
-     req = urllib2.urlopen(url)
-     result = req.read()
-     ans = json.loads(result)
-     return ans
+    #print "amount: " + str(amount)
+    url = "https://data.itpir.wm.edu/deflate/api.php?val=%s%s%s%s"
+    url = url%(amount, currency, year, nation)
+    req = urllib2.urlopen(url)
+    result = req.read()
+    ans = json.loads(result)
+    return ans
 
 #Finds a list of products using the ebay api, sends back the product link with the price closest to how much money the user has
 def find_product(ans, item):

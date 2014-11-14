@@ -28,14 +28,14 @@
 	Country of Origin:
 	<select id="countries" class="form-control" name="country">
 	  {% for nation in nations %}
-	  <option value={{nation}}> {{nation}} </option>
+	  <option value={{nation[0:3]}}> {{nation}} </option>
 	  {% endfor %}
 	</select>
 	<br>
 	Currency:
 	<select id="currencies" class="form-control" name="currency">
 	  {% for currency in currencies %}
-	  <option value={{currency}}> {{currency}} </option>
+	  <option value={{currency[0:3]}}> {{currency}} </option>
 	  {% endfor %}
 	</select>
 	<br>
