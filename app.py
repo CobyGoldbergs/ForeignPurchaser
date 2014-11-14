@@ -78,7 +78,7 @@ def home():
             user = find_user(username)
             nation = user["country"]
             currency = user["currency"]
-            print "currency: " + currency
+            #print "currency: " + currency
             if validity == "Valid":
                 #uses currency deflator api to find your money (and your price range) in 2009 dollars
                 ans = find_money(amount, currency, year, nation)
