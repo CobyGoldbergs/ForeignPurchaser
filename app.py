@@ -4,6 +4,7 @@ from functions import authenticate_user, find_user, create_user, update_user, na
 app=Flask(__name__)
 app.secret_key = 'secret'
 
+#do my commits work
 
 @app.route("/",methods=["GET","POST"])
 @app.route("/login",methods=["GET","POST"])
